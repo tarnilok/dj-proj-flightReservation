@@ -1,6 +1,24 @@
-from django.shortcuts import render
-from django.shortcuts import HttpResponse
+from .serializers import RegistrationSerializer
+from rest_framework.authtoken.models import Token
+from django.contrib.auth.hashers import make_password
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
-def home(request):
-    return HttpResponse('<center><h1 style="background-color:powderblue;">accounts</h1></center>')
+@api_view(['POST'])
+def registration_view(request):
+    if request.method == "POST":
+        serializer = RegistrationSerializer(data=request.data)
+        data = {}
+        if serializer.is_valid():
+            password = serializer.validated_data.get('password')
+            serializer.validated_data['password'] = make_password(password)
+            user = serializer.save()
+            token = Token.objects.create(user=user)
+            data = serializer.data
+            data['token'] = token.key
+        else:
+            data = serializer.errors
+        return Response(data)
+            
+
 

@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     
     'psycopg2',
     'rest_framework',
+    'rest_framework.authtoken',
     'drf_yasg',
+    'django_filters',
     
     #myapps
     'accounts',
@@ -152,3 +154,13 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', # /?limit=2&offset=3
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
