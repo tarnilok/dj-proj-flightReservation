@@ -9,18 +9,28 @@ class FlightsSerializer(serializers.ModelSerializer):
         
     def get_currentNumberOfPassengers(self, obj):
         return Passengers.objects.filter(flight_id = obj.id).count() 
-       
-        
-class ReservationSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField()
-    flight_name = serializers.StringRelatedField()
-    class Meta:
-        model = Reservation
-        fields = '__all__'
-        
+            
 class PassengerSerializer(serializers.ModelSerializer):
     passenger = serializers.StringRelatedField()
     flight = serializers.StringRelatedField()
     class Meta:
         model = Passengers
         fields = '__all__'
+        
+class ReservationSerializer(serializers.ModelSerializer):
+    # passengers = PassengerSerializer(many=True)
+    
+    user = serializers.StringRelatedField()
+    flight_name = serializers.StringRelatedField()
+    flight_name_id = serializers.IntegerField()
+    class Meta:
+        model = Reservation
+        fields = '__all__'
+        # fields = ['user', 'flight_name', 'first_name', 'last_name', 'email', 'phone', 'created_date', 'updated_date', 'passengers']
+        
+    # def create(self, validated_data):
+    #     passengers_data =validated_data.pop('passengers')
+    #     reservation = Reservation.objects.create(**validated_data)
+    #     for passenger_data in passengers_data:
+    #         Passengers.objects.create(reservation=reservation, **passenger_data)
+    #     return reservation

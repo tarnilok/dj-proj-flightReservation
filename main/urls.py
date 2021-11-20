@@ -30,7 +30,7 @@ schema_view = get_schema_view(
         terms_of_service="#",
         contact=openapi.Contact(
             email="tarnilok@gmail.com"),
-        license=openapi.License(name="BSD License"),
+        license=openapi.License(name="Free License"),
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
@@ -39,7 +39,7 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('flightApp/', include('flightApp.urls')),
+    path('', include('flightApp.urls')),
     path('accounts/', include('accounts.urls')),
     
     path('swagger(<format>\.json|\.yaml)', schema_view.without_ui(

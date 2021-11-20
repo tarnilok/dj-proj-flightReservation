@@ -19,6 +19,15 @@ def registration_view(request):
         else:
             data = serializer.errors
         return Response(data)
+    
+@api_view(['POST'])
+def logout_view(request):
+    if request.method == "POST":
+        request.user.auth_token.delete()
+        data = {
+            'message' : 'logout'
+        }
+        return Response(data)
             
 
 

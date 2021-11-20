@@ -8,6 +8,6 @@ router.register('reservations', ReservationViewSet)
 router.register('passengers', PassengerViewSet)
 
 urlpatterns = [
-    path('home/', home, name='home'),
+    path('', home, name='home'),
     path('', include(router.urls)),
 ]
